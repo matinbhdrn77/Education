@@ -1,5 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes.fields import GenericForeignKey
+
 
 # Create your models here.
 class Subject(models.Model):
@@ -11,6 +14,7 @@ class Subject(models.Model):
     
     def __str__(self) -> str:
         return self.title
+
 
 class Course(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='courses_created')
@@ -31,6 +35,13 @@ class Module(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='modules')
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True)
-    
+
     def __str__(self) -> str:
         return self.title
+
+
+class Content(models.Model):
+    module = models.ForeignKey(Module, on_delete=models.CASCADE, related_name='contents')
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    item = GenericForeignKey('content_type', 'object_id')
