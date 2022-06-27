@@ -31,5 +31,6 @@ class Module(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='modules')
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True)
+    
     def __str__(self) -> str:
         return self.title
