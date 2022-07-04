@@ -1,5 +1,3 @@
-from importlib.resources import contents
-from turtle import title
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
@@ -13,14 +11,16 @@ class Subject(models.Model):
 
     class Meta:
         ordering = ['title']
-    
+
     def __str__(self) -> str:
         return self.title
 
 
 class Course(models.Model):
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='courses_created')
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='courses')
+    owner = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='courses_created')
+    subject = models.ForeignKey(
+        Subject, on_delete=models.CASCADE, related_name='courses')
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True)
     overview = models.TextField()
@@ -34,7 +34,8 @@ class Course(models.Model):
 
 
 class Module(models.Model):
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='modules')
+    course = models.ForeignKey(
+        Course, on_delete=models.CASCADE, related_name='modules')
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True)
 
@@ -43,14 +44,20 @@ class Module(models.Model):
 
 
 class Content(models.Model):
-    module = models.ForeignKey(Module, on_delete=models.CASCADE, related_name='contents')
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    module = models.ForeignKey(
+        Module, on_delete=models.CASCADE, 
+        related_name='contents',
+        )
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, limit_choices_to={'model__in': (
+            'text', 'video', 'image', 'file'
+        )})
     object_id = models.PositiveIntegerField()
     item = GenericForeignKey('content_type', 'object_id')
 
 
 class ItemBase(models.Model):
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='%(class)s_related')
+    owner = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='%(class)s_related')
     title = models.CharField(max_length=250)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
