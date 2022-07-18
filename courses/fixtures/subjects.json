@@ -3,15 +3,15 @@
   "model": "courses.subject",
   "pk": 1,
   "fields": {
-    "title": "mathematic",
-    "slug": "mathematic"
+    "title": "Mathematics",
+    "slug": "mathematics"
   }
 },
 {
   "model": "courses.subject",
   "pk": 2,
   "fields": {
-    "title": "music",
+    "title": "Music",
     "slug": "music"
   }
 },
@@ -19,7 +19,7 @@
   "model": "courses.subject",
   "pk": 3,
   "fields": {
-    "title": "physics",
+    "title": "Physics",
     "slug": "physics"
   }
 },
@@ -27,7 +27,7 @@
   "model": "courses.subject",
   "pk": 4,
   "fields": {
-    "title": "programming",
+    "title": "Programming",
     "slug": "programming"
   }
 }
