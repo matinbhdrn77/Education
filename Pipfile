@@ -8,6 +8,7 @@ django = "*"
 pillow = "*"
 django-braces = "*"
 django-embed-video = "==1.3.2"
+djangorestframework = "*"
 
 [dev-packages]
 autopep8 = "*"

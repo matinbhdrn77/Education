@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'embed_video',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -129,3 +130,8 @@ LOGIN_REDIRECT_URL = reverse_lazy('student_course_list')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
+REST_FRAMEWORK = {
+    'DEFAULT_PEMISSION_CLASSES': [
+        'rest_framework.permissions.jangoModelPermissionsOrAnonReadOnly'
+    ]
+}
